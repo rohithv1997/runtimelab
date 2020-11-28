@@ -233,6 +233,9 @@ namespace Internal.IL.Stubs
             if (!_importMetadata.Flags.PreserveSig)
                 throw new NotSupportedException();
 
+            if (_targetMethod.HasCustomAttribute("System.Runtime.InteropServices", "LCIDConversionAttribute"))
+                throw new NotSupportedException();
+
             ILEmitter emitter = ilCodeStreams.Emitter;
             ILCodeStream fnptrLoadStream = ilCodeStreams.FunctionPointerLoadStream;
             ILCodeStream callsiteSetupCodeStream = ilCodeStreams.CallsiteSetupCodeStream;
