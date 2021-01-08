@@ -980,6 +980,15 @@ ep_rt_config_value_get_circular_mb (void)
 	return circular_mb;
 }
 
+static
+inline
+bool
+ep_rt_config_value_get_use_portable_thread_pool (void)
+{
+	// Only supports portable thread pool.
+	return true;
+}
+
 /*
  * EventPipeSampleProfiler.
  */
@@ -1890,7 +1899,7 @@ inline
 const uint8_t *
 ep_rt_thread_get_activity_id_cref (ep_rt_thread_activity_id_handle_t activity_id_handle)
 {
-	EP_ASSERT (!"EP_THREAD_INCLUDE_ACTIVITY_ID should have been defined on Mono");
+	EP_UNREACHABLE ("EP_THREAD_INCLUDE_ACTIVITY_ID should have been defined on Mono");
 	return NULL;
 }
 
@@ -1955,7 +1964,7 @@ ep_rt_mono_thread_yield (void)
 #endif
 }
 
-// See src/coreclr/src/vm/spinlock.h for details.
+// See src/coreclr/vm/spinlock.h for details.
 #if defined(TARGET_ARM) || defined(TARGET_ARM64)
 	#define EP_SLEEP_START_THRESHOLD (5 * 1024)
 #else
